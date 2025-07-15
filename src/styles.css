@@ -1,1 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 @import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+@theme inline {
+    --font-inter:
+        "Inter", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol", "Noto Color Emoji";
+    --font-poppis: "Poppins", sans-serif;
+    --font-sans: var(--font-inter);
+    --font-golos: "Golos Text", sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
