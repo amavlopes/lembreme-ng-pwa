@@ -1,0 +1,70 @@
+<button
+    id="menu_icone"
+    class="text-white focus:outline-none cursor-pointer p-4 -m-4"
+    (click)="menu.classList.remove('-translate-x-full')"
+>
+    <span class="block! pi pi-bars" style="font-size: var(--text-lg)"></span>
+</button>
+<div
+    #menu
+    id="menu"
+    class="fixed top-0 left-0 z-40 h-full w-80 max-w-full -translate-x-full transform transition-transform duration-300"
+>
+    <div id="menu_header" class="bg-indigo-50 p-4 relative">
+        <button
+            id="menu_fechar"
+            class="absolute z-50 top-0 right-0 cursor-pointer p-4"
+            (click)="menu.classList.add('-translate-x-full')"
+        >
+            <span class="pi pi-times"></span>
+        </button>
+
+        <div id="menu_usuario" class="flex items-center gap-3 grow">
+            <div
+                class="w-8 h-8 rounded-full bg-indigo-200 text-indigo-700 text-base font-semibold flex items-center justify-center"
+            >
+                <span
+                    class="pi pi-user"
+                    style="color: var(--color-indigo-500)"
+                ></span>
+            </div>
+
+            <p class="text-sm font-medium">Amanda Lopes</p>
+        </div>
+    </div>
+    <nav id="menu_lista" class="py-4">
+        @if (!!itens?.length) {
+            <ul class="flex flex-col gap-2">
+                @for (item of itens; track item; let ultimoItem = $last) {
+                    <li
+                        [ngClass]="{
+                            'border-b border-b-indigo-50': !ultimoItem,
+                        }"
+                    >
+                        <a class="block p-4">
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center">
+                                    <span
+                                        class="block! pi {{ item.icone }}"
+                                        style="color: var(--color-indigo-500)"
+                                    ></span>
+                                </div>
+
+                                <div>
+                                    <h5 class="text-xs font-medium">
+                                        {{ item.titulo }}
+                                    </h5>
+                                    @if (!!item.descricao) {
+                                        <p class="text-xs text-gray-900">
+                                            {{ item.descricao }}
+                                        </p>
+                                    }
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </nav>
+</div>
