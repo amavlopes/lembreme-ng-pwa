@@ -18,13 +18,13 @@ export class App {
     ngOnInit() {
         this.itens = [
             {
-                icone: 'pi-bookmark',
-                titulo: 'Lembretes',
+                icone: 'pi-tags',
+                titulo: 'Categorias',
                 rota: '',
             },
             {
-                icone: 'pi-tags',
-                titulo: 'Categorias',
+                icone: 'pi-bookmark',
+                titulo: 'Lembretes',
                 rota: '',
             },
             {
