@@ -1,0 +1,11 @@
+<p-dialog
+    [id]="id"
+    [modal]="true"
+    [(visible)]="mostrarDialog"
+    [style]="{ width: largura }"
+>
+    <ng-template #header>
+        <h4 class="font-semibold text-base">{{ tituloErro }}</h4>
+    </ng-template>
+    <p class="mb-2" [innerHTML]="mensagemErro"></p>
+</p-dialog>
