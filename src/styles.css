@@ -19,3 +19,9 @@ body {
     padding: 0;
     height: 100%;
 }
+
+.p-dialog-close-button:hover,
+.p-dialog-close-button:focus-visible {
+    outline: 0 none !important;
+    background: none !important;
+}

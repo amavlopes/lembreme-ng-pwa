@@ -1,6 +1,6 @@
 <div
     [id]="id"
-    class="h-full flex flex-col items-center justify-center text-center gap-1"
+    class="h-full flex flex-col items-center justify-center text-center"
     role="status"
 >
     <svg
@@ -27,7 +27,7 @@
     </svg>
 
     @if (!!titulo) {
-        <h6 class="font-semibold text-xs">{{ titulo }}</h6>
+        <h6 class="font-medium text-xs mt-1.5">{{ titulo }}</h6>
     }
 
     @if (!!descricao) {

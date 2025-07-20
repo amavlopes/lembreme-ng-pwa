@@ -1,0 +1,97 @@
+@if (estaCarregandoPagina) {
+    <lm-loader id="lista_categoria_loader" titulo="Carregando dados" />
+} @else {
+    <ng-template #botaoAdicionar>
+        <button
+            class="cursor-pointer flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-xs rounded hover:bg-indigo-700 transition-all duration-300 ease-in-out"
+            (click)="adicionarCategoria()"
+        >
+            <i class="pi pi-plus" style="font-size: var(--text-xs)"></i>
+            Adicionar
+        </button>
+    </ng-template>
+
+    @if (mostrarEstadoInicialVazio) {
+        <lm-nenhum-resultado
+            id="lista_categoria_nenhum_resultado"
+            titulo="Você ainda não possui categorias cadastradas"
+            descricao="Toque no botão adicionar para criar uma categoria."
+        >
+            <ng-container *ngTemplateOutlet="botaoAdicionar"></ng-container>
+        </lm-nenhum-resultado>
+    } @else {
+        <div class="px-4 container mx-auto">
+            <lm-titulo-pagina id="lista_categoria_titulo">
+                <ng-container>Todas as categorias</ng-container>
+                <ng-container
+                    *ngTemplateOutlet="botaoAdicionar"
+                    botao
+                ></ng-container>
+            </lm-titulo-pagina>
+
+            <div class="flex flex-col gap-4">
+                @for (item of itens; track item; let ultimoItem = $last) {
+                    <lm-item-lista
+                        [id]="item.id"
+                        [titulo]="item.titulo"
+                        (aoClicarAcaoItemLista)="
+                            receberAcaoItemLista($event, item)
+                        "
+                    />
+                }
+            </div>
+        </div>
+    }
+
+    <lm-dialog
+        id="lista_categoria_dialog_erro"
+        [mostrarDialog]="mostrarDialogErro"
+        [titulo]="tituloErro"
+        (aoFechar)="mostrarDialogErro = false"
+    >
+        <p class="mb-2">{{ mensagemErro }}</p>
+    </lm-dialog>
+
+    <lm-dialog
+        id="lista_categoria_dialog_cadastro_edicao"
+        [mostrarDialog]="mostrarDialogCategoria"
+        [titulo]="tituloCategoria"
+        (aoFechar)="fecharDialogCategoria()"
+    >
+        <form [formGroup]="formulario">
+            <input type="hidden" formControlName="id" />
+
+            <p-floatlabel variant="on">
+                <input
+                    pInputText
+                    id="nome_categoria"
+                    class="w-full"
+                    pSize="small"
+                    label="Nome"
+                    formControlName="nome"
+                    autocomplete="off"
+                />
+                <label for="in_label">Nome</label>
+            </p-floatlabel>
+
+            <div class="flex justify-end gap-2 mt-4">
+                <p-button
+                    label="Cancelar"
+                    [outlined]="true"
+                    (click)="fecharDialogCategoria()"
+                    styleClass="w-20"
+                    size="small"
+                ></p-button>
+
+                <p-button
+                    label="Salvar"
+                    (click)="(null)"
+                    styleClass="w-20"
+                    size="small"
+                ></p-button>
+            </div>
+        </form>
+    </lm-dialog>
+
+    <lm-confirm-dialog id="lista_categoria_dialog_confirmar" />
+}

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { DialogModule } from 'primeng/dialog';
 
@@ -10,8 +10,12 @@ import { DialogModule } from 'primeng/dialog';
 })
 export class DialogComponent {
     @Input({ required: true }) id!: string;
-    @Input({ required: true }) tituloErro!: string;
-    @Input({ required: true }) mensagemErro!: string;
-    @Input() mostrarDialog = false;
-    @Input() largura = '10rem';
+    @Input({ required: true }) titulo!: string;
+    @Input() mostrarDialog!: boolean;
+    @Input() largura = '18rem';
+    @Output() aoFechar = new EventEmitter<boolean>();
+
+    fechar(): void {
+        this.aoFechar.emit();
+    }
 }

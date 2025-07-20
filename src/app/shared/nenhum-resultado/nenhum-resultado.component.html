@@ -1,9 +1,13 @@
 <div
     [id]="id"
-    class="h-full flex flex-col items-center justify-center text-center"
+    class="h-full flex flex-col items-center justify-center text-center gap-4"
 >
-    <h6 class="font-medium text-sm">{{ titulo }}</h6>
-    @if (!!descricao) {
-        <p class="text-xs">{{ descricao }}</p>
-    }
+    <div>
+        <h6 class="font-medium text-sm">{{ titulo }}</h6>
+        @if (!!descricao) {
+            <p class="text-xs">{{ descricao }}</p>
+        }
+    </div>
+
+    <ng-content></ng-content>
 </div>
