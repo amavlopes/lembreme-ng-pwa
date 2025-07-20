@@ -25,3 +25,7 @@ body {
     outline: 0 none !important;
     background: none !important;
 }
+
+.p-floatlabel label {
+    font-size: var(--text-sm);
+}

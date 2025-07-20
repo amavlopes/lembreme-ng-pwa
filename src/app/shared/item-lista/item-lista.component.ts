@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AcaoItemLista } from './enums/item-lista,enum';
+import { Acao } from './enums/acao,enum';
 
 @Component({
     selector: 'lm-item-lista',
@@ -12,14 +12,13 @@ export class ItemListaComponent {
     @Input({ required: true }) titulo!: string;
     @Input() descricao: string | undefined;
 
-    @Output() aoClicarAcaoItemLista: EventEmitter<AcaoItemLista> =
-        new EventEmitter();
+    @Output() aoClicarAcao: EventEmitter<Acao> = new EventEmitter();
 
     editar(): void {
-        this.aoClicarAcaoItemLista.emit(AcaoItemLista.EDITAR);
+        this.aoClicarAcao.emit(Acao.EDITAR);
     }
 
     excluir(): void {
-        this.aoClicarAcaoItemLista.emit(AcaoItemLista.EXCLUIR);
+        this.aoClicarAcao.emit(Acao.EXCLUIR);
     }
 }

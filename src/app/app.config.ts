@@ -10,6 +10,7 @@ import { routes } from './app.routes';
 
 import { providePrimeNG } from 'primeng/config';
 import { LembreMeTheme } from './themes/lembre-me.theme';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideAnimationsAsync(),
         provideRouter(routes),
+        provideHttpClient(),
         providePrimeNG({
             theme: {
                 preset: LembreMeTheme,

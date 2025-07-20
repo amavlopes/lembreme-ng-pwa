@@ -30,27 +30,16 @@
             </lm-titulo-pagina>
 
             <div class="flex flex-col gap-4">
-                @for (item of itens; track item; let ultimoItem = $last) {
+                @for (item of itens; track item; let ultimo = $last) {
                     <lm-item-lista
                         [id]="item.id"
                         [titulo]="item.titulo"
-                        (aoClicarAcaoItemLista)="
-                            receberAcaoItemLista($event, item)
-                        "
+                        (aoClicarAcao)="receberAcao($event, item)"
                     />
                 }
             </div>
         </div>
     }
-
-    <lm-dialog
-        id="lista_categoria_dialog_erro"
-        [mostrarDialog]="mostrarDialogErro"
-        [titulo]="tituloErro"
-        (aoFechar)="mostrarDialogErro = false"
-    >
-        <p class="mb-2">{{ mensagemErro }}</p>
-    </lm-dialog>
 
     <lm-dialog
         id="lista_categoria_dialog_cadastro_edicao"
@@ -70,24 +59,37 @@
                     label="Nome"
                     formControlName="nome"
                     autocomplete="off"
+                    (input)="aoDigitar()"
                 />
                 <label for="in_label">Nome</label>
             </p-floatlabel>
+            @if ((nome.touched || nome.dirty) && nome.invalid) {
+                <small class="text-xs text-red-600"
+                    >* Campo nome é obrigatório</small
+                >
+            }
+
+            @if (!!mensagemErro && !nome.invalid) {
+                <small class="text-xs/tight text-red-600">
+                    Erro: {{ mensagemErro }}
+                </small>
+            }
 
             <div class="flex justify-end gap-2 mt-4">
                 <p-button
                     label="Cancelar"
                     [outlined]="true"
                     (click)="fecharDialogCategoria()"
-                    styleClass="w-20"
                     size="small"
                 ></p-button>
 
                 <p-button
                     label="Salvar"
-                    (click)="(null)"
-                    styleClass="w-20"
                     size="small"
+                    type="submit"
+                    [loading]="operacaoPendente"
+                    [disabled]="operacaoPendente"
+                    (click)="salvarCategoria()"
                 ></p-button>
             </div>
         </form>

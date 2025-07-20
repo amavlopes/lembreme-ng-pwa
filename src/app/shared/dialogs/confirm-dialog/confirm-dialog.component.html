@@ -14,16 +14,14 @@
             <p class="mt-4 mb-5 text-sm" [innerHTML]="message.message"></p>
             <div class="flex justify-end gap-2">
                 <p-button
-                    label="Sim"
-                    (onClick)="onAccept()"
-                    styleClass="w-20"
-                    size="small"
-                ></p-button>
-                <p-button
                     label="Não"
                     [outlined]="true"
                     (onClick)="onReject()"
-                    styleClass="w-20"
+                    size="small"
+                ></p-button>
+                <p-button
+                    label="Sim"
+                    (onClick)="onAccept()"
                     size="small"
                 ></p-button>
             </div>
