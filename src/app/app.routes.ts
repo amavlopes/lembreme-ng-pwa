@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/categorias',
+        redirectTo: '/lembretes',
         pathMatch: 'full',
     },
     {
@@ -19,7 +19,7 @@ export const routes: Routes = [
                 title: 'Lembre.me - Categorias',
                 loadComponent: () =>
                     import(
-                        './pages/categorias/lista-categoria/lista-categoria.component'
+                        './sections/categorias/pages/lista-categoria/lista-categoria.component'
                     ).then((m) => m.ListaCategoriaComponent),
             },
         ],
@@ -37,7 +37,7 @@ export const routes: Routes = [
                 title: 'Lembre.me - Lembretes',
                 loadComponent: () =>
                     import(
-                        './pages/lembretes/lista-lembrete/lista-lembrete.component'
+                        './sections/lembretes/pages/lista-lembrete/lista-lembrete.component'
                     ).then((m) => m.ListaLembreteComponent),
             },
             {
@@ -45,7 +45,7 @@ export const routes: Routes = [
                 title: 'Lembre.me - Adicionar Lembrete',
                 loadComponent: () =>
                     import(
-                        './pages/lembretes/cadastro-lembrete/cadastro-lembrete.component'
+                        './sections/lembretes/pages/cadastro-lembrete/cadastro-lembrete.component'
                     ).then((m) => m.CadastroLembreteComponent),
             },
             {
@@ -53,7 +53,7 @@ export const routes: Routes = [
                 title: 'Lembre.me - Editar Lembrete',
                 loadComponent: () =>
                     import(
-                        './pages/lembretes/edicao-lembrete/edicao-lembrete.component'
+                        './sections/lembretes/pages/edicao-lembrete/edicao-lembrete.component'
                     ).then((m) => m.EdicaoLembreteComponent),
             },
         ],

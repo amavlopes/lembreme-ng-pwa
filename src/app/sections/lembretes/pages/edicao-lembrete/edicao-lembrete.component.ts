@@ -14,13 +14,13 @@ import {
 
 import { MessageService } from 'primeng/api';
 
-import Categoria from '../../categorias/interfaces/categoria';
-import Lembrete from '../interfaces/lembrete';
-import { DialogComponent } from '../../../shared/dialogs/dialog/dialog.component';
-import { TituloPaginaComponent } from '../../../shared/titulo-pagina/titulo-pagina.component';
-import { FormularioComponent } from '../components/formulario/formulario.component';
-import { LembreteService } from '../services/lembrete.service';
-import { LoaderComponent } from '../../../shared/loader/loader.component';
+import Categoria from '../../../categorias/interfaces/categoria';
+import Lembrete from '../../interfaces/lembrete';
+import { DialogComponent } from '../../../../shared/dialogs/dialog/dialog.component';
+import { TituloPaginaComponent } from '../../../../shared/titulo-pagina/titulo-pagina.component';
+import { FormularioComponent } from '../../components/formulario/formulario.component';
+import { LembreteService } from '../../services/lembrete.service';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
 
 @Component({
     selector: 'lm-edicao-lembrete',

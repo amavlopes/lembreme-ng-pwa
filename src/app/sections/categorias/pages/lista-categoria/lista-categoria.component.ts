@@ -6,6 +6,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import {
     catchError,
@@ -17,24 +18,22 @@ import {
     of,
     Subject,
     takeUntil,
-    tap,
 } from 'rxjs';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
+import { NenhumResultadoComponent } from '../../../../shared/nenhum-resultado/nenhum-resultado.component';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
+import { TituloPaginaComponent } from '../../../../shared/titulo-pagina/titulo-pagina.component';
+import { ItemListaComponent } from '../../../../shared/item-lista/item-lista.component';
+import ItemLista from '../../../../shared/item-lista/interfaces/item-lista';
 
-import { NenhumResultadoComponent } from '../../../shared/nenhum-resultado/nenhum-resultado.component';
-import { LoaderComponent } from '../../../shared/loader/loader.component';
-import { TituloPaginaComponent } from '../../../shared/titulo-pagina/titulo-pagina.component';
-import { ItemListaComponent } from '../../../shared/item-lista/item-lista.component';
-import ItemLista from '../../../shared/item-lista/interfaces/item-lista';
-import { CommonModule } from '@angular/common';
-import { DialogComponent } from '../../../shared/dialogs/dialog/dialog.component';
-import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
-import { Acao } from '../../../shared/item-lista/enums/acao.enum';
-import { CategoriaService } from '../services/categoria.service';
-import Categoria from '../interfaces/categoria';
+import { DialogComponent } from '../../../../shared/dialogs/dialog/dialog.component';
+import { ConfirmDialogComponent } from '../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { Acao } from '../../../../shared/item-lista/enums/acao.enum';
+import { CategoriaService } from '../../services/categoria.service';
+import Categoria from '../../interfaces/categoria';
 
 @Component({
     selector: 'lm-lista-categoria',

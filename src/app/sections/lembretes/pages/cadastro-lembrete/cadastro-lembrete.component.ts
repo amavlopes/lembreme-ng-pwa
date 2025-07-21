@@ -6,13 +6,13 @@ import { catchError, EMPTY, finalize, Subject, takeUntil } from 'rxjs';
 
 import { MessageService } from 'primeng/api';
 
-import { listaCores } from '../../../const/cores.const';
-import Categoria from '../../categorias/interfaces/categoria';
-import { TituloPaginaComponent } from '../../../shared/titulo-pagina/titulo-pagina.component';
-import { LembreteService } from '../services/lembrete.service';
-import { DialogComponent } from '../../../shared/dialogs/dialog/dialog.component';
-import Lembrete from '../interfaces/lembrete';
-import { FormularioComponent } from '../components/formulario/formulario.component';
+import { listaCores } from '../../../../const/cores.const';
+import Categoria from '../../../categorias/interfaces/categoria';
+import { TituloPaginaComponent } from '../../../../shared/titulo-pagina/titulo-pagina.component';
+import { LembreteService } from '../../services/lembrete.service';
+import Lembrete from '../../interfaces/lembrete';
+import { FormularioComponent } from '../../components/formulario/formulario.component';
+import { DialogComponent } from '../../../../shared/dialogs/dialog/dialog.component';
 
 @Component({
     selector: 'lm-cadastro-lembrete',
