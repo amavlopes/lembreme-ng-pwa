@@ -16,7 +16,7 @@ export class UpdateService {
                     ),
                 )
                 .subscribe(() => {
-                    this.updateAvailable$.next(); // Emite evento para mostrar o diálogo
+                    this.updateAvailable$.next();
                 });
         }
     }

@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SwPush } from '@angular/service-worker';
 
 import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { ConfirmationService } from 'primeng/api';
@@ -8,6 +9,7 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { ItemMenu } from './core/components/menu/interfaces/item-menu';
 import { MenuComponent } from './core/components/menu/menu.component';
 import { ToastComponent } from './core/components/toast/toast.component';
+import { NotificacaoPushService } from './core/services/notificacao-push.service';
 
 @Component({
     selector: 'lm-root',
@@ -57,6 +59,8 @@ export class App {
     constructor(
         private updateService: UpdateService,
         private confirmationService: ConfirmationService,
+        private swPush: SwPush,
+        private servicoNotificacaoPush: NotificacaoPushService,
     ) {
         this.updateService.updateAvailable$.subscribe(() => {
             this.confirmationService.confirm({
@@ -67,5 +71,12 @@ export class App {
                 accept: () => this.updateService.activateUpdate(),
             });
         });
+    }
+
+    ngOnInit(): void {
+        if (this.swPush.isEnabled) {
+            this.servicoNotificacaoPush.solicitarPermissaoNotificacoes();
+            this.servicoNotificacaoPush.receberNotificacao();
+        }
     }
 }
