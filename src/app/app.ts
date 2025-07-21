@@ -13,34 +13,36 @@ import { ItemMenu } from './core/menu/interfaces/item-menu';
 })
 export class App {
     protected readonly title = signal('lembreme-ng-pwa');
+
+    corSelecionada!: string;
     itens: ItemMenu[] | undefined;
 
     ngOnInit() {
         this.itens = [
             {
-                icone: 'pi-tags',
+                icone: 'fa-tags',
                 titulo: 'Categorias',
-                rota: '',
+                rota: '/categorias',
             },
             {
-                icone: 'pi-bookmark',
+                icone: 'fa-thumbtack',
                 titulo: 'Lembretes',
-                rota: '',
+                rota: '/lembretes',
             },
             {
-                icone: 'pi-id-card',
+                icone: 'fa-id-badge',
                 titulo: 'Perfil',
                 descricao: 'Acesse os dados cadastrais',
                 rota: '',
             },
             {
-                icone: 'pi-cog',
+                icone: 'fa-gear',
                 titulo: 'Configurações',
                 descricao: 'Preferências do app',
                 rota: '',
             },
             {
-                icone: 'pi-sign-out',
+                icone: 'fa-arrow-right-from-bracket',
                 titulo: 'Sair',
                 rota: '',
             },

@@ -1,5 +1,5 @@
 export default interface ItemLista {
-    id: string;
+    id: number;
     titulo: string;
     descricao?: string;
 }

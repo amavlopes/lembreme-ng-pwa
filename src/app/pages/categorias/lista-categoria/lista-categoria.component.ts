@@ -21,7 +21,6 @@ import {
 } from 'rxjs';
 
 import { InputTextModule } from 'primeng/inputtext';
-import { FloatLabel } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 
@@ -35,14 +34,13 @@ import { DialogComponent } from '../../../shared/dialogs/dialog/dialog.component
 import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { Acao } from '../../../shared/item-lista/enums/acao,enum';
 import { CategoriaService } from '../services/categoria.service';
-import CategoriaI from '../interfaces/categoria';
+import Categoria from '../interfaces/categoria';
 
 @Component({
     selector: 'lm-lista-categoria',
     imports: [
         CommonModule,
         InputTextModule,
-        FloatLabel,
         ReactiveFormsModule,
         NenhumResultadoComponent,
         LoaderComponent,
@@ -98,9 +96,9 @@ export class ListaCategoriaComponent implements OnInit {
 
     obterCategoriasHttp$(termo: string = ''): Observable<ItemLista[]> {
         return this.servicoCategoria.obterCategorias(termo).pipe(
-            map((categorias: CategoriaI[]) => {
+            map((categorias: Categoria[]) => {
                 const itens: ItemLista[] = categorias.map(
-                    (categoria: CategoriaI) => ({
+                    (categoria: Categoria) => ({
                         id: categoria.id,
                         titulo: categoria.nome,
                     }),

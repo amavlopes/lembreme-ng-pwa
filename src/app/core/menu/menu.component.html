@@ -1,7 +1,7 @@
 <button
     id="menu_icone"
     class="text-white focus:outline-none cursor-pointer p-4 -m-4"
-    (click)="menu.classList.remove('-translate-x-full')"
+    (click)="menu.classList.toggle('-translate-x-full')"
 >
     <span class="block! pi pi-bars" style="font-size: var(--text-lg)"></span>
 </button>
@@ -23,10 +23,10 @@
             <div
                 class="w-8 h-8 rounded-full bg-indigo-200 text-indigo-700 text-base font-semibold flex items-center justify-center"
             >
-                <span
-                    class="pi pi-user"
+                <i
+                    class="fa-solid fa-user"
                     style="color: var(--color-indigo-500)"
-                ></span>
+                ></i>
             </div>
 
             <p class="text-sm font-medium">Amanda Lopes</p>
@@ -40,14 +40,19 @@
                         [ngClass]="{
                             'border-b border-b-indigo-50': !ultimoItem,
                         }"
+                        (click)="menu.classList.add('-translate-x-full')"
                     >
-                        <a class="block p-4">
+                        <a
+                            class="block p-4"
+                            [routerLink]="item.rota"
+                            routerLinkActive="ativo"
+                        >
                             <div class="flex items-center gap-4">
                                 <div class="flex items-center">
-                                    <span
-                                        class="block! pi {{ item.icone }}"
+                                    <i
+                                        class="block! fa-solid {{ item.icone }}"
                                         style="color: var(--color-indigo-500)"
-                                    ></span>
+                                    ></i>
                                 </div>
 
                                 <div>

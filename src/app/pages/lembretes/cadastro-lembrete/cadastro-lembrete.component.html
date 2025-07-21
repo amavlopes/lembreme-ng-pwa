@@ -1,0 +1,136 @@
+<div class="container m-auto">
+    <div class="px-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <button
+                    class="group cursor-pointer p-4 -ml-4"
+                    (click)="voltarPagina()"
+                >
+                    <i
+                        class="fa-solid fa-arrow-left text-indigo-500 group-hover:text-indigo-700 transition-all duration-300 ease-in-out"
+                    ></i>
+                </button>
+
+                <lm-titulo-pagina id="cadastro_lembrete_titulo">
+                    Adicionar Lembrete
+                </lm-titulo-pagina>
+            </div>
+        </div>
+
+        <form class="flex flex-col gap-4" [formGroup]="formulario">
+            <input type="hidden" formControlName="id" />
+
+            <div class="flex flex-col gap-2">
+                <label for="titulo_lembrete" class="text-xs tracking-wide"
+                    >Título <span class="text-red-600">*</span></label
+                >
+                <input
+                    pInputText
+                    id="titulo_lembrete"
+                    class="w-full"
+                    pSize="small"
+                    label="Nome"
+                    formControlName="nome"
+                    autocomplete="off"
+                />
+                @if ((nome.touched || nome.dirty) && nome.invalid) {
+                    <small class="text-xs text-red-600"
+                        >* Campo título é obrigatório</small
+                    >
+                }
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <h4 class="text-xs tracking-wide">Cor</h4>
+
+                <div class="flex gap-4">
+                    <button
+                        *ngFor="let opcaoCor of cores"
+                        class="cursor-pointer border border-zinc-800 w-6 h-6 rounded-full"
+                        [ngStyle]="{ 'background-color': opcaoCor }"
+                        (click)="aplicarCor(opcaoCor)"
+                    >
+                        <i
+                            *ngIf="cor.value === opcaoCor"
+                            class="fa-solid fa-check text-indigo-700"
+                        ></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="id_categoria" class="text-xs tracking-wide"
+                    >Categoria</label
+                >
+                <p-select
+                    id="id_categoria"
+                    class="w-full"
+                    formControlName="idCategoria"
+                    optionLabel="nome"
+                    optionValue="id"
+                    emptyMessage="Nenhuma categoria encontrada"
+                    [loading]="carregando"
+                    [options]="categorias"
+                    [checkmark]="true"
+                    [showClear]="
+                        carregando || !idCategoria.value ? false : true
+                    "
+                    [placeholder]="carregando ? 'Carregando...' : 'Selecione'"
+                    size="small"
+                />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="agendado_para" class="text-xs tracking-wide"
+                    >Agendado para</label
+                >
+                <p-datepicker
+                    id="agendado_para"
+                    inputId="agendado_para"
+                    class="text-sm w-full"
+                    formControlName="agendadoPara"
+                    dateFormat="dd/mm/yy"
+                    hourFormat="24"
+                    size="small"
+                    placeholder="Selecione a data e hora"
+                    [showTime]="true"
+                    [showButtonBar]="true"
+                />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="descricao_lembrete" class="text-xs tracking-wide"
+                    >Descrição</label
+                >
+                <textarea
+                    pTextarea
+                    id="descricao_lembrete"
+                    class="w-full"
+                    formControlName="descricao"
+                    cols="3"
+                    rows="3"
+                    pSize="small"
+                    [autoResize]="true"
+                ></textarea>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-4">
+                <p-button
+                    label="Limpar"
+                    [outlined]="true"
+                    (click)="limparFormulario()"
+                    size="small"
+                ></p-button>
+
+                <p-button
+                    label="Salvar"
+                    size="small"
+                    type="submit"
+                    [loading]="operacaoPendente"
+                    [disabled]="operacaoPendente"
+                    (click)="salvarLembrete()"
+                ></p-button>
+            </div>
+        </form>
+    </div>
+</div>

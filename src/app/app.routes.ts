@@ -25,4 +25,22 @@ export const routes: Routes = [
             },
         ],
     },
+    {
+        path: 'lembretes',
+        children: [
+            {
+                path: '',
+                redirectTo: 'cadastro',
+                pathMatch: 'full',
+            },
+            {
+                path: 'cadastro',
+                title: 'Lembre.me - Adicionar Lembrete',
+                loadComponent: () =>
+                    import(
+                        './pages/lembretes/cadastro-lembrete/cadastro-lembrete.component'
+                    ).then((m) => m.CadastroLembreteComponent),
+            },
+        ],
+    },
 ];

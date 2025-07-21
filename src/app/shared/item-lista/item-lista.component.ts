@@ -8,7 +8,7 @@ import { Acao } from './enums/acao,enum';
     styleUrl: './item-lista.component.css',
 })
 export class ItemListaComponent {
-    @Input({ required: true }) id!: string;
+    @Input({ required: true }) id!: number;
     @Input({ required: true }) titulo!: string;
     @Input() descricao: string | undefined;
 

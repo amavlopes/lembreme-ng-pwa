@@ -2,13 +2,12 @@
     <lm-loader id="lista_categoria_loader" titulo="Carregando dados" />
 } @else {
     <ng-template #botaoAdicionar>
-        <button
-            class="cursor-pointer flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-xs rounded hover:bg-indigo-700 transition-all duration-300 ease-in-out"
+        <p-button
+            class="tracking-wide"
+            label="Adicionar"
+            size="small"
             (click)="adicionarCategoria()"
-        >
-            <i class="pi pi-plus" style="font-size: var(--text-xs)"></i>
-            Adicionar
-        </button>
+        ></p-button>
     </ng-template>
 
     @if (mostrarEstadoInicialVazio) {
@@ -20,23 +19,25 @@
             <ng-container *ngTemplateOutlet="botaoAdicionar"></ng-container>
         </lm-nenhum-resultado>
     } @else {
-        <div class="px-4 container mx-auto">
-            <lm-titulo-pagina id="lista_categoria_titulo">
-                <ng-container>Todas as categorias</ng-container>
-                <ng-container
-                    *ngTemplateOutlet="botaoAdicionar"
-                    botao
-                ></ng-container>
-            </lm-titulo-pagina>
+        <div class="container m-auto">
+            <div class="px-4">
+                <lm-titulo-pagina id="lista_categoria_titulo">
+                    <ng-container>Todas as categorias</ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="botaoAdicionar"
+                        botao
+                    ></ng-container>
+                </lm-titulo-pagina>
 
-            <div class="flex flex-col gap-4">
-                @for (item of itens; track item; let ultimo = $last) {
-                    <lm-item-lista
-                        [id]="item.id"
-                        [titulo]="item.titulo"
-                        (aoClicarAcao)="receberAcao($event, item)"
-                    />
-                }
+                <div class="flex flex-col gap-4">
+                    @for (item of itens; track item; let ultimo = $last) {
+                        <lm-item-lista
+                            [id]="item.id"
+                            [titulo]="item.titulo"
+                            (aoClicarAcao)="receberAcao($event, item)"
+                        />
+                    }
+                </div>
             </div>
         </div>
     }
@@ -50,7 +51,10 @@
         <form [formGroup]="formulario">
             <input type="hidden" formControlName="id" />
 
-            <p-floatlabel variant="on">
+            <div class="flex flex-col gap-2">
+                <label for="nome_categoria" class="text-xs tracking-wide"
+                    >Nome <span class="text-red-600">*</span></label
+                >
                 <input
                     pInputText
                     id="nome_categoria"
@@ -61,19 +65,17 @@
                     autocomplete="off"
                     (input)="aoDigitar()"
                 />
-                <label for="in_label">Nome</label>
-            </p-floatlabel>
-            @if ((nome.touched || nome.dirty) && nome.invalid) {
-                <small class="text-xs text-red-600"
-                    >* Campo nome é obrigatório</small
-                >
-            }
-
-            @if (!!mensagemErro && !nome.invalid) {
-                <small class="text-xs/tight text-red-600">
-                    Erro: {{ mensagemErro }}
-                </small>
-            }
+                @if ((nome.touched || nome.dirty) && nome.invalid) {
+                    <small class="text-xs text-red-600"
+                        >* Campo nome é obrigatório</small
+                    >
+                }
+                @if (!!mensagemErro && !nome.invalid) {
+                    <small class="text-xs/tight text-red-600">
+                        Erro: {{ mensagemErro }}
+                    </small>
+                }
+            </div>
 
             <div class="flex justify-end gap-2 mt-4">
                 <p-button

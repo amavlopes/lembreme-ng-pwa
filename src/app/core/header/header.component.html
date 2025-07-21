@@ -1,9 +1,13 @@
-<header class="w-full bg-indigo-700 p-4 flex items-center gap-4">
-    <ng-content></ng-content>
+<header class="w-full bg-indigo-700">
+    <div class="container m-auto">
+        <div class="flex items-center justify-between gap-4 p-4">
+            <h1
+                class="text-white lowercase font-golos font-bold text-xl leading-none tracking-wider"
+            >
+                Lembre.me
+            </h1>
 
-    <h1
-        class="text-white lowercase font-golos font-bold text-lg leading-none tracking-wider"
-    >
-        Lembre.me
-    </h1>
+            <ng-content></ng-content>
+        </div>
+    </div>
 </header>

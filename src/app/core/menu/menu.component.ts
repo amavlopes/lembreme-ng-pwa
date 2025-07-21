@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { ItemMenu } from './interfaces/item-menu';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { ItemMenu } from './interfaces/item-menu';
 
 @Component({
     selector: 'lm-menu',
-    imports: [CommonModule],
+    imports: [CommonModule, RouterModule],
     templateUrl: './menu.component.html',
     styleUrl: './menu.component.css',
 })

@@ -26,6 +26,14 @@ body {
     background: none !important;
 }
 
-.p-floatlabel label {
-    font-size: var(--text-sm);
+.p-floatlabel label,
+.p-select-option,
+.p-datepicker *,
+.p-datepicker-time-picker span {
+    font-size: var(--text-sm) !important;
+}
+
+.p-datepicker .p-datepicker-panel {
+    width: 315px !important;
+    min-width: 315px !important;
 }
