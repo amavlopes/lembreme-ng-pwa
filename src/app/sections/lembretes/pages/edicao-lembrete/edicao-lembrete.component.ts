@@ -7,6 +7,7 @@ import {
     EMPTY,
     finalize,
     Observable,
+    of,
     Subject,
     switchMap,
     takeUntil,
@@ -42,7 +43,7 @@ export class EdicaoLembreteComponent implements OnInit, OnDestroy {
     private rotaAtiva = inject(ActivatedRoute);
     private destroy$ = new Subject<void>();
 
-    lembrete$!: Observable<Lembrete>;
+    lembrete$!: Observable<Lembrete | null>;
     lembreteId!: number;
     estaCarregando = true;
     operacaoPendente = false;
@@ -50,6 +51,18 @@ export class EdicaoLembreteComponent implements OnInit, OnDestroy {
     tituloErro = '';
     mensagemErro = '';
     categorias: Categoria[] = [];
+    isOffline = false;
+
+    constructor() {
+        this.isOffline = !navigator.onLine;
+
+        window.addEventListener('online', () => {
+            this.isOffline = false;
+        });
+        window.addEventListener('offline', () => {
+            this.isOffline = true;
+        });
+    }
 
     ngOnInit(): void {
         this.carregarLembrete();
@@ -69,6 +82,14 @@ export class EdicaoLembreteComponent implements OnInit, OnDestroy {
             switchMap((params) => {
                 this.lembreteId = Number(params.get('lembreteId'));
 
+                if (this.isOffline) {
+                    // Tente obter o lembrete do cache ou mostre mensagem
+                    this.tituloErro = 'Você está offline';
+                    this.mensagemErro = 'Dados não disponíveis no momento.';
+                    this.mostrarDialog = true;
+                    return of(null);
+                }
+
                 return this.servicoLembrete
                     .obterLembretePorId(this.lembreteId)
                     .pipe(
@@ -76,11 +97,12 @@ export class EdicaoLembreteComponent implements OnInit, OnDestroy {
                             this.tituloErro = 'Erro ao carregar lembrete';
                             this.mensagemErro = e.message;
                             this.mostrarDialog = true;
-
-                            return EMPTY;
+                            return of(null); // Se não conseguir carregar dados da API
                         }),
                     );
             }),
+            finalize(() => (this.estaCarregando = false)),
+            takeUntil(this.destroy$),
         );
     }
 
@@ -95,7 +117,7 @@ export class EdicaoLembreteComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$),
                 finalize(() => (this.operacaoPendente = false)),
                 catchError((e: Error) => {
-                    this.tituloErro = 'Erro ao atualizar professor';
+                    this.tituloErro = 'Erro ao atualizar lembrete';
                     this.mensagemErro = e.message;
                     this.mostrarDialog = true;
 

@@ -2,7 +2,8 @@ import {
     ApplicationConfig,
     LOCALE_ID,
     provideBrowserGlobalErrorListeners,
-    provideZoneChangeDetection, isDevMode,
+    provideZoneChangeDetection,
+    isDevMode,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -82,9 +83,10 @@ export const appConfig: ApplicationConfig = {
             },
         }),
         { provide: LOCALE_ID, useValue: 'pt-BR' },
-        MessageService, provideServiceWorker('ngsw-worker.js', {
+        MessageService,
+        provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }),
+            registrationStrategy: 'registerWhenStable:30000',
+        }),
     ],
 };
