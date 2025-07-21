@@ -81,6 +81,7 @@ export class ListaLembreteComponent implements OnInit {
                 return itens;
             }),
             catchError((e) => {
+                this.tituloErro = 'Erro ao obter lembretes';
                 this.mensagemErro = e.message;
                 this.mostrarDialog = true;
 

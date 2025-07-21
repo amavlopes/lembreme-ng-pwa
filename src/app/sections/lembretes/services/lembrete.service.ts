@@ -4,6 +4,7 @@ import Lembrete from '../interfaces/lembrete';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import LembreteResponse from '../interfaces/lembrete.response';
 import { LembreteParametros } from '../interfaces/lembrete-parametros';
+import tratarErro from '../../../utilities/tratar-erro';
 
 @Injectable({
     providedIn: 'root',
@@ -17,24 +18,22 @@ export class LembreteService {
         const request = this.criarRequest(lembrete);
 
         return this.http.post<LembreteResponse>(this.url, request).pipe(
-            catchError((e) =>
-                throwError(() => new Error(e.error.message || e.message)),
-            ),
+            catchError((e) => tratarErro(e)),
             map((response: LembreteResponse) => this.mapearResponse(response)),
         );
     }
 
     obterLembretes(parametros?: LembreteParametros): Observable<Lembrete[]> {
         const params = this.criarHttpParams({
-            name: parametros?.nome?.trim(),
-            color: parametros?.cor,
-            categoryId: Number(parametros?.idCategoria),
+            ...(parametros?.nome?.trim() && { name: parametros?.nome.trim() }),
+            ...(parametros?.cor && { color: parametros?.cor }),
+            ...(parametros?.idCategoria && {
+                categoryId: Number(parametros?.idCategoria),
+            }),
         });
 
         return this.http.get<LembreteResponse[]>(this.url, { params }).pipe(
-            catchError((e) =>
-                throwError(() => new Error(e.error.message || e.message)),
-            ),
+            catchError((e) => tratarErro(e)),
             retry({ count: 2, delay: 1000 }),
             map((response: LembreteResponse[]) => {
                 const lembretes: Lembrete[] = response.map(
@@ -49,9 +48,7 @@ export class LembreteService {
 
     obterLembretePorId(id: number): Observable<Lembrete> {
         return this.http.get<LembreteResponse>(`${this.url}/${id}`).pipe(
-            catchError((e) =>
-                throwError(() => new Error(e.error.message || e.message)),
-            ),
+            catchError((e) => tratarErro(e)),
             retry({ count: 2, delay: 1000 }),
             map((response: LembreteResponse) => this.mapearResponse(response)),
         );
@@ -63,9 +60,7 @@ export class LembreteService {
         return this.http
             .put<LembreteResponse>(`${this.url}/${lembrete.id}`, request)
             .pipe(
-                catchError((e) =>
-                    throwError(() => new Error(e.error.message || e.message)),
-                ),
+                catchError((e) => tratarErro(e)),
                 map((response: LembreteResponse) =>
                     this.mapearResponse(response),
                 ),
@@ -74,9 +69,7 @@ export class LembreteService {
 
     excluirLembretePorId(id: number): Observable<void> {
         return this.http.delete<Observable<void>>(`${this.url}/${id}`).pipe(
-            catchError((e) =>
-                throwError(() => new Error(e.error.message || e.message)),
-            ),
+            catchError((e) => tratarErro(e)),
             map(() => void 0),
         );
     }

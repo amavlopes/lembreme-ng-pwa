@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import Categoria from '../interfaces/categoria';
 import CategoriaResponse from '../interfaces/categoria.response';
+import tratarErro from '../../../utilities/tratar-erro';
 
 @Injectable({
     providedIn: 'root',
@@ -16,9 +17,7 @@ export class CategoriaService {
         const request = { name: categoria.nome };
 
         return this.http.post<CategoriaResponse>(this.url, request).pipe(
-            catchError((e) =>
-                throwError(() => new Error(e.error.message || e.message)),
-            ),
+            catchError((e) => tratarErro(e)),
             map((response: CategoriaResponse) => ({
                 id: response.id,
                 nome: response.name,
@@ -33,9 +32,7 @@ export class CategoriaService {
             : {};
 
         return this.http.get<CategoriaResponse[]>(this.url, opcoes).pipe(
-            catchError((e) =>
-                throwError(() => new Error(e.error.message || e.message)),
-            ),
+            catchError((e) => tratarErro(e)),
             retry({ count: 2, delay: 1000 }),
             map((response: CategoriaResponse[]) => {
                 const categorias = response.map(
@@ -56,9 +53,7 @@ export class CategoriaService {
         return this.http
             .put<CategoriaResponse>(`${this.url}/${curso.id}`, request)
             .pipe(
-                catchError((e) =>
-                    throwError(() => new Error(e.error.message || e.message)),
-                ),
+                catchError((e) => tratarErro(e)),
                 map((response: CategoriaResponse) => ({
                     id: response.id,
                     nome: response.name,
@@ -68,9 +63,7 @@ export class CategoriaService {
 
     excluirCategoriaPorId(id: number): Observable<void> {
         return this.http.delete<Observable<void>>(`${this.url}/${id}`).pipe(
-            catchError((e) =>
-                throwError(() => new Error(e.error.message || e.message)),
-            ),
+            catchError((e) => tratarErro(e)),
             map(() => void 0),
         );
     }

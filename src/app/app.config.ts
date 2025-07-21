@@ -2,7 +2,7 @@ import {
     ApplicationConfig,
     LOCALE_ID,
     provideBrowserGlobalErrorListeners,
-    provideZoneChangeDetection,
+    provideZoneChangeDetection, isDevMode,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -13,6 +13,7 @@ import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
 import { LembreMeTheme } from './themes/lembre-me.theme';
 import { MessageService } from 'primeng/api';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -81,6 +82,9 @@ export const appConfig: ApplicationConfig = {
             },
         }),
         { provide: LOCALE_ID, useValue: 'pt-BR' },
-        MessageService,
+        MessageService, provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }),
     ],
 };
