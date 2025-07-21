@@ -12,7 +12,8 @@
                     "/index.html",
                     "/manifest.webmanifest",
                     "/*.css",
-                    "/*.js"
+                    "/*.js",
+                    "/media/**"
                 ]
             }
         },
@@ -55,7 +56,10 @@
         },
         {
             "name": "lembretes-api",
-            "urls": ["http://localhost:7000/reminders"],
+            "urls": [
+                "http://localhost:7000/reminders",
+                "http://localhost:7000/reminders/*"
+            ],
             "cacheConfig": {
                 "strategy": "freshness",
                 "maxAge": "1d",
