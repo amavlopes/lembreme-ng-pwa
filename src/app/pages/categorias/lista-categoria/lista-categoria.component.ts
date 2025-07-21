@@ -32,7 +32,7 @@ import ItemLista from '../../../shared/item-lista/interfaces/item-lista';
 import { CommonModule } from '@angular/common';
 import { DialogComponent } from '../../../shared/dialogs/dialog/dialog.component';
 import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
-import { Acao } from '../../../shared/item-lista/enums/acao,enum';
+import { Acao } from '../../../shared/item-lista/enums/acao.enum';
 import { CategoriaService } from '../services/categoria.service';
 import Categoria from '../interfaces/categoria';
 
@@ -157,7 +157,7 @@ export class ListaCategoriaComponent implements OnInit {
             .excluirCategoriaPorId(id)
             .pipe(
                 catchError((e) => {
-                    this.tituloErro = 'Erro ao excluir curso';
+                    this.tituloErro = 'Erro ao excluir categoria';
                     this.mensagemErro = e.message;
                     this.mostrarDialogErro = true;
 

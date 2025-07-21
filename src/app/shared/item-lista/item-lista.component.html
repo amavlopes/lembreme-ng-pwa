@@ -1,12 +1,15 @@
 <div
-    class="border border-indigo-100 rounded-md bg-indigo-50 px-4 pr-0"
+    class="border border-indigo-100 rounded-md px-4 pr-0"
     [class.py-2]="!!descricao"
+    [style.backgroundColor]="cor"
 >
     <div class="flex items-center justify-between">
         <div>
             <h5 class="font-semibold text-[13px]">{{ titulo }}</h5>
             @if (!!descricao) {
-                <p class="text-xs">{{ descricao }}</p>
+                <p class="text-xs whitespace-pre-line line-clamp-2">
+                    {{ descricao }}
+                </p>
             }
         </div>
         <div class="flex">

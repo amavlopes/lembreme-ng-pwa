@@ -1,0 +1,56 @@
+@if (estaCarregandoPagina) {
+    <lm-loader id="lista_lembrete_loader" titulo="Carregando dados" />
+} @else {
+    <ng-template #botaoAdicionar>
+        <p-button
+            class="tracking-wide"
+            label="Adicionar"
+            size="small"
+            (click)="adicionarLembrete()"
+        ></p-button>
+    </ng-template>
+
+    @if (mostrarEstadoInicialVazio) {
+        <lm-nenhum-resultado
+            id="lista_lembrete_nenhum_resultado"
+            titulo="Você ainda não possui lembretes cadastrados"
+            descricao="Toque no botão adicionar para criar um lembrete."
+        >
+            <ng-container *ngTemplateOutlet="botaoAdicionar"></ng-container>
+        </lm-nenhum-resultado>
+    } @else {
+        <div class="container m-auto">
+            <div class="px-4">
+                <lm-titulo-pagina id="lista_categoria_titulo">
+                    <ng-container>Todos os lembretes</ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="botaoAdicionar"
+                        botao
+                    ></ng-container>
+                </lm-titulo-pagina>
+
+                <div class="flex flex-col gap-4">
+                    @for (item of itens; track item; let ultimo = $last) {
+                        <lm-item-lista
+                            [id]="item.id"
+                            [titulo]="item.titulo"
+                            [descricao]="item.descricao"
+                            [cor]="item.cor!"
+                            (aoClicarAcao)="receberAcao($event, item)"
+                        />
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <lm-dialog
+        id="lista_lembrete_dialog_erro"
+        [mostrarDialog]="mostrarDialog"
+        [titulo]="tituloErro"
+    >
+        <p class="text-sm">{{ mensagemErro }}</p>
+    </lm-dialog>
+
+    <lm-confirm-dialog id="lista_lembrete_dialog_confirmar" />
+}

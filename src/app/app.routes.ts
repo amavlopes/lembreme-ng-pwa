@@ -1,4 +1,3 @@
-import { ListaCategoriaComponent } from './pages/categorias/lista-categoria/lista-categoria.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -30,8 +29,16 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'cadastro',
+                redirectTo: 'lista',
                 pathMatch: 'full',
+            },
+            {
+                path: 'lista',
+                title: 'Lembre.me - Lembretes',
+                loadComponent: () =>
+                    import(
+                        './pages/lembretes/lista-lembrete/lista-lembrete.component'
+                    ).then((m) => m.ListaLembreteComponent),
             },
             {
                 path: 'cadastro',

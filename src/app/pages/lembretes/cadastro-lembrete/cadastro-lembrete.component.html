@@ -134,3 +134,12 @@
         </form>
     </div>
 </div>
+
+<lm-dialog
+    id="cadastro_lembrete_dialog_erro"
+    [mostrarDialog]="mostrarDialog"
+    [titulo]="tituloErro"
+    (aoFechar)="fecharDialog()"
+>
+    <p class="text-sm">{{ mensagemErro }}</p>
+</lm-dialog>

@@ -7,6 +7,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { catchError, EMPTY, finalize, Subject, takeUntil } from 'rxjs';
 
@@ -15,14 +16,14 @@ import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
+import { listaCores } from '../../../const/cores.const';
 import Categoria from '../../categorias/interfaces/categoria';
 import { TituloPaginaComponent } from '../../../shared/titulo-pagina/titulo-pagina.component';
 import { CategoriaService } from '../../categorias/services/categoria.service';
 import { LembreteService } from '../services/lembrete.service';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
-import Lembrete from '../interfaces/lembrete';
+import { DialogComponent } from '../../../shared/dialogs/dialog/dialog.component';
 
 @Component({
     selector: 'lm-cadastro-lembrete',
@@ -33,6 +34,7 @@ import Lembrete from '../interfaces/lembrete';
         ButtonModule,
         SelectModule,
         TextareaModule,
+        DialogComponent,
         DatePickerModule,
         ReactiveFormsModule,
     ],
@@ -48,19 +50,12 @@ export class CadastroLembreteComponent implements OnInit, OnDestroy {
     private roteador = inject(Router);
     private destroy$ = new Subject<void>();
 
-    cores: string[] = [
-        '#F6F5FF',
-        '#F7FFEB',
-        '#FFEDDE',
-        '#E8FAFF',
-        '#FFEFFD',
-        '#FFF9E5',
-    ];
-    corPadrao = '#F6F5FF';
+    cores = listaCores;
+    corPadrao = listaCores[0];
     carregando = false;
     operacaoPendente = false;
     mostrarDialog = false;
-    tituloErro = 'Erro ao cadastrar categorias';
+    tituloErro = 'Erro ao cadastrar lembrete';
     mensagemErro = '';
     categorias: Categoria[] = [];
     formulario: FormGroup = this.fb.group({
@@ -162,10 +157,14 @@ export class CadastroLembreteComponent implements OnInit, OnDestroy {
             .subscribe((_) => {
                 this.servicoMensagem.add({
                     severity: 'success',
-                    summary: `Lembrete cadastrado com sucesso`,
+                    summary: `Lembrete cadastrado`,
                 });
 
-                //this.roteador.navigate(['/lembretes']);
+                this.roteador.navigate(['/lembretes']);
             });
+    }
+
+    fecharDialog(): void {
+        this.mostrarDialog = false;
     }
 }
