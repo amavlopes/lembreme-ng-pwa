@@ -27,6 +27,7 @@ import { ItemListaComponent } from '../../../shared/item-lista/item-lista.compon
 import { DialogComponent } from '../../../shared/dialogs/dialog/dialog.component';
 import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { Acao } from '../../../shared/item-lista/enums/acao.enum';
+import { LembreteParametros } from '../interfaces/lembrete-parametros';
 
 @Component({
     selector: 'lm-lista-lembrete',
@@ -63,8 +64,10 @@ export class ListaLembreteComponent implements OnInit {
         this.carregarLembretes();
     }
 
-    obterLembretesHttp$(termo: string = ''): Observable<ItemLista[]> {
-        return this.servicoLembrete.obterLembretes(termo).pipe(
+    obterLembretesHttp$(
+        parametros?: LembreteParametros,
+    ): Observable<ItemLista[]> {
+        return this.servicoLembrete.obterLembretes(parametros).pipe(
             map((lembretes: Lembrete[]) => {
                 const itens: ItemLista[] = lembretes.map(
                     (lembrete: Lembrete) => ({
@@ -102,7 +105,7 @@ export class ListaLembreteComponent implements OnInit {
 
     receberAcao(acao: Acao, item: ItemLista): void {
         if (acao === Acao.EDITAR) {
-            this.roteador.navigate(['/lembretes/edicao']);
+            this.roteador.navigate(['/lembretes/edicao', item.id]);
         } else if (acao === Acao.EXCLUIR) {
             this.confirmarExclusao(item);
         }

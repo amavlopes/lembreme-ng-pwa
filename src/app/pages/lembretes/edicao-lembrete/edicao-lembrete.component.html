@@ -1,0 +1,39 @@
+@if (lembrete$ | async; as lembrete) {
+    <div class="container m-auto">
+        <div class="px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <button
+                        class="group cursor-pointer p-4 -ml-4"
+                        (click)="voltarPagina()"
+                    >
+                        <i
+                            class="fa-solid fa-arrow-left text-indigo-500 group-hover:text-indigo-700 transition-all duration-300 ease-in-out"
+                        ></i>
+                    </button>
+
+                    <lm-titulo-pagina id="edicao_lembrete_titulo">
+                        Editar Lembrete
+                    </lm-titulo-pagina>
+                </div>
+            </div>
+
+            <lm-formulario
+                id="edicao_lembrete_formulario"
+                [operacaoPendente]="operacaoPendente"
+                [lembrete]="lembrete"
+                (evtSalvar)="aoClicarSalvar($event)"
+            ></lm-formulario>
+        </div>
+    </div>
+
+    <lm-dialog
+        id="edica_lembrete_dialog_erro"
+        [mostrarDialog]="mostrarDialog"
+        [titulo]="tituloErro"
+    >
+        <p class="text-sm">{{ mensagemErro }}</p>
+    </lm-dialog>
+} @else {
+    <lm-loader id="edicao_lembrete_loader" titulo="Carregando página" />
+}

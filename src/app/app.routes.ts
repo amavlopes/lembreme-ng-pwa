@@ -48,6 +48,14 @@ export const routes: Routes = [
                         './pages/lembretes/cadastro-lembrete/cadastro-lembrete.component'
                     ).then((m) => m.CadastroLembreteComponent),
             },
+            {
+                path: 'edicao/:lembreteId',
+                title: 'Lembre.me - Editar Lembrete',
+                loadComponent: () =>
+                    import(
+                        './pages/lembretes/edicao-lembrete/edicao-lembrete.component'
+                    ).then((m) => m.EdicaoLembreteComponent),
+            },
         ],
     },
 ];
