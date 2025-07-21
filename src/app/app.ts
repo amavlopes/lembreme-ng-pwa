@@ -4,10 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './core/header/header.component';
 import { MenuComponent } from './core/menu/menu.component';
 import { ItemMenu } from './core/menu/interfaces/item-menu';
+import { ToastComponent } from './core/toast/toast.component';
 
 @Component({
     selector: 'lm-root',
-    imports: [RouterOutlet, HeaderComponent, MenuComponent],
+    imports: [RouterOutlet, HeaderComponent, MenuComponent, ToastComponent],
     templateUrl: './app.html',
     styleUrl: './app.css',
 })

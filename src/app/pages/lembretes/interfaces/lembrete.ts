@@ -1,5 +1,5 @@
 export default interface Lembrete {
-    id: string;
+    id: number;
     nome: string;
     cor?: string;
     idCategoria?: number;

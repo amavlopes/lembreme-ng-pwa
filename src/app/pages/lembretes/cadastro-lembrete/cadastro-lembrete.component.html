@@ -46,13 +46,13 @@
                 <div class="flex gap-4">
                     <button
                         *ngFor="let opcaoCor of cores"
-                        class="cursor-pointer border border-zinc-800 w-6 h-6 rounded-full"
+                        class="cursor-pointer border border-zinc-600 w-6 h-6 rounded-full"
                         [ngStyle]="{ 'background-color': opcaoCor }"
                         (click)="aplicarCor(opcaoCor)"
                     >
                         <i
                             *ngIf="cor.value === opcaoCor"
-                            class="fa-solid fa-check text-indigo-700"
+                            class="fa-solid fa-check text-zinc-700"
                         ></i>
                     </button>
                 </div>

@@ -1,4 +1,4 @@
-export default interface IReminder {
+export default interface LembreteResponse {
     id: number;
     name: string;
     color: string;

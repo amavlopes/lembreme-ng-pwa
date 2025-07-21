@@ -8,17 +8,21 @@ import {
     Validators,
 } from '@angular/forms';
 
-import { catchError, EMPTY, finalize, Subject } from 'rxjs';
+import { catchError, EMPTY, finalize, Subject, takeUntil } from 'rxjs';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
-
-import { TituloPaginaComponent } from '../../../shared/titulo-pagina/titulo-pagina.component';
 import { ButtonModule } from 'primeng/button';
+
 import Categoria from '../../categorias/interfaces/categoria';
+import { TituloPaginaComponent } from '../../../shared/titulo-pagina/titulo-pagina.component';
 import { CategoriaService } from '../../categorias/services/categoria.service';
+import { LembreteService } from '../services/lembrete.service';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
+import Lembrete from '../interfaces/lembrete';
 
 @Component({
     selector: 'lm-cadastro-lembrete',
@@ -39,15 +43,18 @@ export class CadastroLembreteComponent implements OnInit, OnDestroy {
     private location = inject(Location);
     private fb = inject(FormBuilder);
     private servicoCategoria: CategoriaService = inject(CategoriaService);
+    private servicoLembrete: LembreteService = inject(LembreteService);
+    private servicoMensagem: MessageService = inject(MessageService);
+    private roteador = inject(Router);
     private destroy$ = new Subject<void>();
 
     cores: string[] = [
         '#F6F5FF',
-        '#E1F5C4',
-        '#FAD3B2',
-        '#DCF7F3',
+        '#F7FFEB',
+        '#FFEDDE',
+        '#E8FAFF',
         '#FFEFFD',
-        '#FFFCDD',
+        '#FFF9E5',
     ];
     corPadrao = '#F6F5FF';
     carregando = false;
@@ -137,5 +144,28 @@ export class CadastroLembreteComponent implements OnInit, OnDestroy {
         if (this.formulario.invalid || this.operacaoPendente) return;
 
         this.operacaoPendente = true;
+
+        this.servicoLembrete
+            .criarLembrete(this.formulario.value)
+            .pipe(
+                takeUntil(this.destroy$),
+                catchError((e) => {
+                    this.mensagemErro = e.message;
+                    this.mostrarDialog = true;
+
+                    return EMPTY;
+                }),
+                finalize(() => {
+                    this.operacaoPendente = false;
+                }),
+            )
+            .subscribe((_) => {
+                this.servicoMensagem.add({
+                    severity: 'success',
+                    summary: `Lembrete cadastrado com sucesso`,
+                });
+
+                //this.roteador.navigate(['/lembretes']);
+            });
     }
 }
